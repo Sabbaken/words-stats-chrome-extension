@@ -1,0 +1,28 @@
+{
+  "short_name": "Words stats",
+  "name": "Words stats",
+  "version": "0.1",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["app/background.js"]
+  },
+  "icons": {
+    "16": "paper.png",
+    "48": "paper.png",
+    "128": "paper.png"
+  },
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "content_scripts" : [
+    {
+      "matches": [ "<all_urls>" ],
+      "css": ["/css/root.css"],
+      "js": ["/static/js/content.js"]
+    }
+  ],
+  "web_accessible_resources":[
+    "/static/css/content.css", "/static/media/*"
+  ],
+  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'"
+}
