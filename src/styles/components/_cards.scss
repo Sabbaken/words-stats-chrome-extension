@@ -3,11 +3,18 @@
 
 .card {
   border-radius: 9px;
-  margin: 20px 6px;
-  padding: 24px;
+  margin: 10px 6px;
+  padding: 16px;
 
   background-color: $c-card-background;
 
   @include outline();
   @include font-primary();
+}
+
+.card__header {
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  border-bottom: $stroke;
+  @include font-header();
 }
