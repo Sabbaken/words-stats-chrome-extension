@@ -1,0 +1,13 @@
+@import "../settings/all";
+@import "../tools/all";
+
+.card {
+  border-radius: 9px;
+  margin: 20px 6px;
+  padding: 24px;
+
+  background-color: $c-card-background;
+
+  @include outline();
+  @include font-primary();
+}

@@ -1,0 +1,15 @@
+@mixin outline {
+  border: 1px solid $c-outline;
+}
+
+@mixin remove-user-select {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+@mixin unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

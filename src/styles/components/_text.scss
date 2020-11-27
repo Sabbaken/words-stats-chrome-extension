@@ -1,0 +1,17 @@
+@import "../settings/all";
+
+.text {
+}
+
+.text-primary {
+  @include font-primary();
+}
+
+.text-secondary {
+  @include font-secondary();
+}
+
+.text-header {
+  @include font-header();
+}
+
