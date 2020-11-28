@@ -1,9 +1,11 @@
 /*global chrome*/
 
 import React, { useEffect } from 'react';
+import Circle from 'react-circle';
 import './styles/main.scss'
 import Card from './components/card';
 import { processPage } from './store/actions/textActions';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 export const fetchPageText = (callback) => {
@@ -35,12 +37,14 @@ const App = () => {
   return (
     <div className="App">
       <Card title={"Общая информация"}>
-        <p className="text text-secondary"><span className="text text-primary">Всего слов:</span> {wordsInTotal}</p>
-        <p className="text text-secondary"><span className="text text-primary">Уникальных слов:</span> {uniqueWordsInTotal}</p>
+        <p className="text text-secondary"><span
+          className="text text-primary">Всего слов:</span> {wordsInTotal}</p>
+        <p className="text text-secondary"><span
+          className="text text-primary">Уникальных слов:</span> {uniqueWordsInTotal}</p>
       </Card>
 
       <Card title={"График"}>
-        {percentage}
+        <Circle progress={(percentage * 100).toFixed(2)}/>
       </Card>
     </div>
   );
