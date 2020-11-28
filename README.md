@@ -3,3 +3,6 @@
 
 ### Используемые технологии / библиотеки
 - React
+
+![img](https://i.imgur.com/fAgDa38.gif)
+
