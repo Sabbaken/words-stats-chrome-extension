@@ -1,40 +1,49 @@
 /*global chrome*/
 
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './styles/main.scss'
 import Card from './components/card';
+import { processPage } from './store/actions/textActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const fetchPageText = () => {
-  let query = { active: true, currentWindow: true };
-
-  function callback(tabs) {
-    var currentTab = tabs[0]; // there will be only one in this array
-    console.log(currentTab); // also has properties like currentTab.id
-
-    chrome.tabs.sendMessage(currentTab.id, {type: "getPage"}, {},  function (response) {
-      console.log(response)
+export const fetchPageText = (callback) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    let currentTab = tabs[0];
+    chrome.tabs.sendMessage(currentTab.id, { type: "getPage" }, {}, function (response) {
+      callback(response);
     })
-  };
-
-  chrome.tabs.query(query, callback);
+  });
 }
 
 const App = () => {
-  useEffect(()=>{
-   fetchPageText();
+  const percentage = useSelector(state => state.text.percentage)
+  const uniqueWordsInTotal = useSelector(state => state.text.uniqueWordsInTotal)
+  const wordsInTotal = useSelector(state => state.text.wordsInTotal)
+
+  // Не очень красиво но почему-то из action creator нельзя обратиться к chrome
+  const callback = (response) => {
+    processCurrentPage(response)
+  }
+
+  const dispatch = useDispatch();
+  const processCurrentPage = (response) => dispatch(processPage(response));
+
+  useEffect(() => {
+    fetchPageText(callback);
   }, []);
 
-    return (
-      <div className="App">
-        <Card title={"Общая информация"}>
-          Whatever
-        </Card>
+  return (
+    <div className="App">
+      <Card title={"Общая информация"}>
+        <p className="text text-secondary"><span className="text text-primary">Всего слов:</span> {wordsInTotal}</p>
+        <p className="text text-secondary"><span className="text text-primary">Уникальных слов:</span> {uniqueWordsInTotal}</p>
+      </Card>
 
-        <Card title={"График"}>
-          Whatever 2
-        </Card>
-      </div>
-    );
+      <Card title={"График"}>
+        {percentage}
+      </Card>
+    </div>
+  );
 }
 
 export default App;
